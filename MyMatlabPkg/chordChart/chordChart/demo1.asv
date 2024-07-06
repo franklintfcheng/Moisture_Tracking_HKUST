@@ -1,0 +1,31 @@
+% demo 1
+% @author : slandarer
+% 公众号  : slandarer随笔
+% 知乎    : hikari
+
+dataMat=[2 0 1 2 5 1 2;
+         3 5 1 4 2 0 1;
+         4 0 5 5 2 4 3];
+colName={'GGGGGG1','GGGGGGG2','GGGGGGG3','GGGGGGG4','GGGGGGG5','GGGGGGG6','GGGGGGG7'};
+rowName={'S1','S2','S3'};
+
+CC=chordChart(dataMat,'rowName',rowName,'colName',colName);
+CC=CC.draw();
+
+% CC.setChordColorByMap([0,0,.8;.8,0,0])
+
+
+CC.setFont('FontSize',17,'FontName','Cambria')
+CC.tickState('on')
+
+
+textHdl=findobj(gca,'Type','Text');
+for i=1:length(textHdl)
+    if textHdl(i).Rotation<0&&textHdl(i).Position(2)>0
+        textHdl(i).Rotation=textHdl(i).Rotation+90;
+        textHdl(i).HorizontalAlignment='left';
+    case textHdl(i).Rotation<0&&textHdl(i).Position(2)>0
+        textHdl(i).Rotation=textHdl(i).Rotation-90;
+        textHdl(i).HorizontalAlignment='right';
+    end
+end

@@ -1,0 +1,79 @@
+function dn = daynoleap2datenum_v2(day, pivotyr, pivotmonth, pivotday, format)
+%DAYNOLEAP2DATENUM Convert from days since, no leap to serial date number
+%
+% dn = daynoleap2datenum(day, pivotyr)
+% dt = daynoleap2datenum(day, pivotyr, format)
+%
+% A lot of climate model output is saved with a time scale of "days since
+% YYYY-01-01 00:00:00", where every year has 365 days.  This function
+% converts those dates into a serial date number.  This can be useful if
+% you want to compare model output to real-world data.
+%
+% Input variables:
+%
+%   day:        number of days since pivot year
+%
+%   pivotyr:    pivot year, i.e. year that day count begins (on Jan 1)
+%
+%   format:     output format, either 'dn' for datenumbers or 'dt' for
+%               datetime objects (R2014b+ only)
+%
+% Output variables:
+%
+%   dn:         array of datenumbers, same size as day
+%
+%   dt:         datetime array, same size as day
+
+% Copyright 2012-2015 Kelly Kearney
+
+% Parse format
+
+if nargin < 5
+    format = 'dn';
+end
+
+date_mmdd_365 = [101:131, 201:228, 301:331, 401:430, 501:531, 601:630,...
+                 701:731, 801:831, 901:930, 1001:1031, 1101:1130, 1201:1231];
+
+pivot_dayofyear = find(date_mmdd_365 == pivotmonth*100 + pivotday);
+             
+% Determine which years in range are leap years
+
+nyr = max(day./365);
+yrs = pivotyr:(pivotyr + nyr);
+
+
+isleap = @(x) (mod(x,4)==0 & mod(x,100)~=0) | mod(x,400) == 0;
+leapyrs = yrs(isleap(yrs));
+
+% Calculate date numbers
+
+dayofyear = rem(day, 365);
+yr = floor(day/365) + pivotyr;
+
+switch format
+    case 'dn'
+        dn = datenum(pivotyr, 1, 1) + day;
+    case 'dt'
+        if verLessThan('matlab', '8.4.0')
+            warning('Datetime objects not supported pre-R2014b; defaulting to datenumber output');
+            dn = datenum(pivotyr, 1, 1) + day;
+        else
+            dn = datetime(pivotyr, 1, 1) + day;
+        end
+    otherwise
+        error('Unrecognized output format; must be ''dn'' or ''dt''');
+end
+% Skip Feb 29 in leap years
+
+for ileap = 1:length(leapyrs)
+    needsbump = yr > leapyrs(ileap) | (yr == leapyrs(ileap) & dayofyear >= 59); %/ Since here dayofyear = [0.5, ..., 58.5, 59.5],
+                                                                                %/ so dayofyear >= 59 means >= 29 Feb.
+
+    dn(needsbump) = dn(needsbump) + 1; %/ Basically, if we have year 2004 to be the leap year,
+                                       %/ Then, plus one to the dates since Mar 1, 2004.
+                                       %/ Likewise, for the next leap year,
+                                       %/ plus one to the dates since Mar 1, 2008.
+end
+
+
