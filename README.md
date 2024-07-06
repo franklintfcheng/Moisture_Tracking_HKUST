@@ -10,9 +10,11 @@
 This repository consists of the source codes for the backward **`WaterSip`** and forward **`WaterDrip`** diagnostics based on the particle output position (`partpositXXXX`) from [FLEXPART](https://www.flexpart.eu/) simulations. 
 
 **Usage**  
-- To perform moisture tracking, go to `moisture_tracking.m`. Adapt paths / parameters to your needs.
+- To perform moisture tracking, go to `moisture_tracking.m`. Adapt paths/parameters to your needs.
 
-- To plot the backtracked moisture source, go to `flexpart_tutorial.m`. Adapt paths / parameters to your needs.
+- To plot the backtracked moisture source, go to `flexpart_tutorial.m`. Adapt paths/parameters to your needs.
+  
+- The codes were written in Matlab (ver 2023a).
 
 
 **Updates** 
