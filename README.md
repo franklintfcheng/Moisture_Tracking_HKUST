@@ -16,7 +16,8 @@ This repository consists of the source codes for the backward **`WaterSip`** and
 
 
 **Updates** 
-*-- Jul 5, 2024 --*
+
+*-- July 5, 2024 --*
 1. Added AR-related moisture contribution in WaterSip diagnostic (`Pm_AR`)
 2. Minimized the hard-coded portions from `moisture_tracking.m` and `flexpart_tutorial.m`
 
