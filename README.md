@@ -1,6 +1,6 @@
 # Lagrangian moisture tracking diagnostics
 
-**Code Developer:** Dr. Franklin Tat Fan Cheng (franklin.cheng@ust.hk)
+**Code Developer:** Dr. Tat Fan (Franklin) Cheng (franklin.cheng@ust.hk)
 
 **Affiliation:** Civil and Environmental Engineering, Hong Kong University of Science and Technology (HKUST)
 
