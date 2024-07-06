@@ -2,8 +2,8 @@
 clearvars;
 
 %==========================================================================
-% matlab_package_path = '/disk/r059/tfchengac/FlexpartWaterSip_HKUST/';  %/ Set the path of the folder where you store the matlab packages
-matlab_package_path = '/home/tfchengac/';               %/ Set the path of the folder where you store the matlab packages
+matlab_package_path = '/disk/r059/tfchengac/Moisture_Tracking_HKUST/';  %/ Set the path of the folder where you store the matlab packages
+% matlab_package_path = '/home/tfchengac/';               %/ Set the path of the folder where you store the matlab packages
 masterfolder        = '/disk/r059/tfchengac/FLEXPART/'; %/ Set your own master folder
 
 %/ Set your moisture tracking details (based on moisture_tracking.m)
@@ -586,12 +586,12 @@ for top = basin_list
                      %contf          %cont      %vector  %vector2   %hatch   %trend_mode
     % slct_list = { 'Pm',               '',        '',     '',     '',   0;}; mean_or_sum = 'sum'; 
     % slct_list = { 'Pm_AR',            '',        '',     '',     '',   0;}; mean_or_sum = 'sum';  
-    
-    % slct_list = { 'P_LA',             '',        '',     '',     '',   0;    
-    %               'ERA5_P_05',        '',        '',     '',     '',   0;}; mean_or_sum = 'sum';slct_region = slct_region + 0.5; %/ Zoom-in
-    
+
     slct_list = { 'P_LA',             '',        '',     '',     '',   0;   
                   'ERA5_P',           '',        '',     '',     '',   0;}; mean_or_sum = 'sum'; AWM_lon_extent = [min(basin_bndry(:,1)), max(basin_bndry(:,1))]; AWM_lat_extent = [min(basin_bndry(:,2)), max(basin_bndry(:,2))]; 
+        
+    % slct_list = { 'P_LA',             '',        '',     '',     '',   0;    
+                  % 'ERA5_P_05',        '',        '',     '',     '',   0;}; mean_or_sum = 'sum';slct_region = slct_region + 0.5; %/ Zoom-in
     
     % slct_list = { 'ERA5_P',           '',        '',     '',     '',   0;}; slct_region = slct_region + 0.5; %/ Zoom-in
     % slct_list = { 'Cf_map',           '',        '',     '',     '',   0;}; 
@@ -2421,10 +2421,8 @@ for top = basin_list
                 str_diff_metrics = sprintf(' (SSIM=%.2f r=%.2f RMSE=%.2f)', SSIM, r, RMSE); %/ This str will be used.
                 titlename        = strcat(titlename, str_diff_metrics);
             end
-            
-            if savefig  savepath = strcat(plotting_folder, strrep(FigName, ' ', '_'));
-            else        savepath = []; end
-            
+            savepath = [];
+
             %/ Map
             if plot_map 
                 plot_contfmap('contf_data', (contf_data + contf_plus)*contf_multiply, 'contf_lon', contf_lon, 'contf_lat', contf_lat, 'contf_levels', contf_levels,...
@@ -2446,11 +2444,10 @@ for top = basin_list
                 fprintf('done \n')
             end
 
-            %/ Compute global area-weighted mean/sum of contf_data
+            %/ Compute area-weighted mean (AWM) or sum of contf_data
             if compute_contf_AWM
                 [contf_AWM, ~, ~, area_unit, str_extent] = compute_area_wgted_meansum('data', (contf_data + contf_plus)*contf_multiply, 'lon', contf_lon, 'lat', contf_lat,...
                                                                                       'lon_extent', AWM_lon_extent, 'lat_extent', AWM_lat_extent, 'mean_or_sum', mean_or_sum);
-                
                 
                 str_AWM = sprintf('AWM%s: %.5G %s %s', str_extent, contf_AWM, contf_unit, area_unit); 
 
@@ -2460,6 +2457,12 @@ for top = basin_list
                            'Units', 'normalized', 'EdgeColor', 'none',  'Position', AWM_pos)
             end
             
+            %/ Save figue here to include AWM
+            if savefig  
+                final_FigName = char(fullfile(plotting_folder, strrep(FigName, ' ', '_')));
+                export_fig(final_FigName,['-r',num2str(png_dpi)],'-png', '-opengl', '-nocrop', '-transparent');
+            end
+
             %/ Some statistics
             if ismember(slct_contf_str, {'optimal_trajtime'}) && trend_mode == 0
                 %/ unweighted
