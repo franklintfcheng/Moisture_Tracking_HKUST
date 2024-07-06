@@ -2,7 +2,7 @@
 
 **Code Developer:** Dr. Franklin Tat Fan Cheng (franklin.cheng@ust.hk)
 
-**Affiliation:** Hong Kong University of Science and Technology (HKUST)
+**Affiliation:** Civil and Environmental Engineering, Hong Kong University of Science and Technology (HKUST)
 
 ---
 
