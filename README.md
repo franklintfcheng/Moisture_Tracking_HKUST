@@ -1,6 +1,6 @@
 # Lagrangian moisture tracking diagnostics
 
-**Project Leader:** Dr. Franklin Tat Fan Cheng (franklin.cheng@ust.hk)
+**Code Developer:** Dr. Franklin Tat Fan Cheng (franklin.cheng@ust.hk)
 
 **Affiliation:** Hong Kong University of Science and Technology (HKUST)
 
@@ -14,7 +14,7 @@ This repository consists of the source codes for the backward **`WaterSip`** and
 
 - To plot the backtracked moisture source, go to `flexpart_tutorial.m`. Adapt paths/parameters to your needs.
   
-- The codes were written in Matlab (ver 2023a).
+- The programs were all written in Matlab (ver 2023a).
 
 
 **Updates** 
