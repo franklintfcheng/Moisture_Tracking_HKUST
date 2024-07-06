@@ -1,6 +1,6 @@
 # Lagrangian moisture tracking diagnostics
 
-**Project Leader:** Dr. Franklin Tat Fan Cheng (franklin.cheng[at]ust.hk)
+**Project Leader:** Dr. Franklin Tat Fan Cheng (franklin.cheng@ust.hk)
 
 **Affiliation:** Hong Kong University of Science and Technology (HKUST)
 
