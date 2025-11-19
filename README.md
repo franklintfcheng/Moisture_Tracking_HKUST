@@ -24,7 +24,7 @@ This repository consists of the source codes for the backward **`WaterSip`** and
 2. Minimized the hard-coded portions from `moisture_tracking.m` and `flexpart_tutorial.m`
 
 
-**References** 
+**If you find this moisture tracking diagnostics useful to your research, please cite the relevant articles (Thanks!):** 
 
 - Cheng, T. F., and M. Lu, 2023: Global Lagrangian Tracking of Continental Precipitation Recycling, Footprints, and Cascades. J. Climate, 36, 1923–1941, https://doi.org/10.1175/JCLI-D-22-0185.1.
 
